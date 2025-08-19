@@ -1,0 +1,206 @@
+openapi: 3.0.4
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    Projeto desenvolvido para a disciplina de Construção de Software, 
+    ministrada pelo professor Miguel Xavier na PUCRS.
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: willian.weyh@edu.pucrs.br
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.12
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+tags:
+  - name: Construção de Software
+    description: Tema do projeto ainda não definido pelo professor.
+    externalDocs:
+      description: N/A
+      url: N/A
+  - name: store
+    description: N/A
+    externalDocs:
+      description: N/A
+      url: N/A
+  - name: user
+paths:
+    /users:
+      post:
+        summary: Cria um novo usuário
+        requestBody:
+          required: true
+        responses:
+          "201":
+            description: Usuário criado com sucesso
+      get:
+        summary: Lista todos os usuários
+        responses:
+          "200":
+            description: Lista de usuários cadastrados
+    /users/{id}:
+      get:
+        summary: Busca um usuário pelo ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        responses:
+          "200":
+            description: Usuário encontrado
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/User"
+
+      put:
+        summary: Atualiza os dados de um usuário
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        responses:
+          "200":
+            description: Usuário atualizado com sucesso
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/User"
+
+      delete:
+        summary: Remove um usuário pelo ID
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+              type: string
+        responses:
+          "204":
+            description: Usuário removido com sucesso
+
+  components:
+    schemas:
+      User:
+        type: object
+        properties:
+          id:
+            type: string
+          nome:
+            type: string
+          email:
+            type: string
+            format: email
+          telefone:
+            type: string
+        required: [ nome, email, telefone ]
+      paths:
+        /users:
+          post:
+            summary: Cria um novo usuário
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/User"
+            responses:
+              "201":
+                description: Usuário criado com sucesso
+                content:
+                  application/json:
+                    schema:
+                      $ref: "#/components/schemas/User"
+
+          get:
+            summary: Lista todos os usuários
+            responses:
+              "200":
+                description: Lista de usuários cadastrados
+                content:
+                  application/json:
+                    schema:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/User"
+
+        /users/{id}:
+          get:
+            summary: Busca um usuário pelo ID
+            parameters:
+              - in: path
+                name: id
+                required: true
+                schema:
+                  type: string
+            responses:
+              "200":
+                description: Usuário encontrado
+                content:
+                  application/json:
+                    schema:
+                      $ref: "#/components/schemas/User"
+
+          put:
+            summary: Atualiza os dados de um usuário
+            parameters:
+              - in: path
+                name: id
+                required: true
+                schema:
+                  type: string
+            requestBody:
+              required: true
+              content:
+                application/json:
+                  schema:
+                    $ref: "#/components/schemas/User"
+            responses:
+              "200":
+                description: Usuário atualizado com sucesso
+                content:
+                  application/json:
+                    schema:
+                      $ref: "#/components/schemas/User"
+
+          delete:
+            summary: Remove um usuário pelo ID
+            parameters:
+              - in: path
+                name: id
+                required: true
+                schema:
+                  type: string
+            responses:
+              "204":
+                description: Usuário removido com sucesso
+
+      components:
+        schemas:
+          User:
+            type: object
+            properties:
+              id:
+                type: string
+              nome:
+                type: string
+              email:
+                type: string
+                format: email
+              telefone:
+                type: string
+            required: [ nome, email, telefone ]
